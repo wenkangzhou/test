@@ -594,8 +594,13 @@
                     //关闭当前webview
                     document.addEventListener("qbrowserVisibilityChange", function (e) {
                         if (e.hidden === true) setTimeout(function () {
-                            mqq.ui.popBack();
-                        }, 5000);
+                            document.title="hah"
+                            mqq.ui.closeWebViews({
+                                mode: 2,
+                                exclude: false
+                            })
+                            //mqq.ui.popBack();
+                        }, 500);
                     });
                     
                     if (ENV.is_mqq) {
