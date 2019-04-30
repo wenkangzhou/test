@@ -19,8 +19,6 @@
         <p id="notice">6668</p>
     </div>
     <script>
-        alert(1)
-        window.vConsole = new window.VConsole();
         /*
          * 数据源配置http://ams.cm.com/act_static.php?actid=108100
          * @params
@@ -671,6 +669,8 @@
         });
         //页面入口
         (function () {
+            window.vConsole = new window.VConsole();
+            document.getElementById('notice').text('3333')
             var jumpUrlMod = require('jumpUrlMod');
 
             init = function () {
