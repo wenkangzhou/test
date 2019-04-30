@@ -8,15 +8,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <link rel="shortcut icon" href="//cdn.vip.qq.com/vipstyle/mobile/mvip/v1/img/favicon.ico" type="image/x-icon">
-    <title>66667</title>
+    <title></title>
     <link rel="stylesheet" type="text/css" href="//cdn.vip.qq.com/vipstyle/frozenui/1.3.0/css/global.css?_bid=2134" />
-     <script type="text/javascript" src="//open.mobile.qq.com/sdk/qqapi.js?_bid=152"></script>
-    <script type="text/javascript" src="//wechatfe.github.io/vconsole/lib/vconsole.min.js?v=3.3.0"></script>
+    <script type="text/javascript" src="//open.mobile.qq.com/sdk/qqapi.js?_bid=152"></script>
 </head>
 <body ontouchstart="">
-    <div id="wp-notice" class="ui-notice" >
+    <div id="wp-notice" class="ui-notice" style="display:none;">
         <i></i>
-        <p id="notice">6618</p>
+        <p id="notice"></p>
     </div>
     <script>
         /*
@@ -537,7 +536,7 @@
             jumpUrlMod.checkHost = function (url) {
                 url = url.split('?')[0];
                 var host = url.split('/');
-                if (jumpUrlMod.READ_URL_REG.test(url) || /^\d+$/.test(url) || jumpUrlMod.READ_TEST_URL_REG.test(url) || jumpUrlMod.FILE_NAME_REG.test(url) || jumpUrlMod.MQQ_REG.test(url)) {
+                if (jumpUrlMod.READ_URL_REG.test(url) || /^\d+$/.test(url) || jumpUrlMod.READ_TEST_URL_REG.test(url) || jumpUrlMod.FILE_NAME_REG.test(url)) {
                     _private.ismqqUrl = !0;
                     return true;
                 } else if (/^https?:/.test(host[0]) && /\.qq\.com$/.test(host[2])) {
@@ -575,15 +574,11 @@
             }
 
             jumpUrlMod.jumpUrl = function (url, ChannelID, url_params) {
-                console.log(url)
                 var realurl = '';
                 if (_private.ismqqUrl) {
 
-                    //直接跳对应协议
-                    if(jumpUrlMod.MQQ_REG.test(url)){
-                        realurl = decodeURIComponent(url);
                     //直接跳阅读器
-                    }else if (url == 20){
+                    if(url == 20){
                         realurl = 'mqqapi://readingcenter/open?src_type=internal&version=1&over=0&drm=0&readtype=20&stay=1' + (url_params?'&'+url_params:'');
                     //一级页面
                     }else if (/^\d$/.test(url)) {
@@ -595,11 +590,9 @@
                     
                     //关闭当前webview
                     document.addEventListener("qbrowserVisibilityChange", function (e) {
-                        console.log(e)
                         if (e.hidden === true) setTimeout(function () {
-                            console.log(6666)
                             mqq.ui.popBack();
-                        }, 500);
+                        }, 5000);
                     });
                     
                     if (ENV.is_mqq) {
@@ -662,14 +655,12 @@
             jumpUrlMod.READ_URL_REG = /^https?:\/\/(imgcache|cdn\.vip)\.qq\.com\/club\/client\/read\/(6|ios)\/rel\/([^/]+?\.html)(\?.*)?/;
             jumpUrlMod.READ_TEST_URL_REG = /^https?:\/\/(h5|h5test)\.qzone\.qq\.com\/proxy\/domain\/(imgcache|cdn\.vip)\.qq\.com\/club\/client\/read\/(6|ios)\/rel\/([^/]+?\.html)(\?.*)?/;
             jumpUrlMod.FILE_NAME_REG = /^[^\/]*\.html$/;
-            jumpUrlMod.MQQ_REG = /^mqqapi:\/\//;
 
             return (exports.jumpUrlMod = jumpUrlMod);
 
         });
         //页面入口
         (function () {
-            window.vConsole = new window.VConsole();
             var jumpUrlMod = require('jumpUrlMod');
 
             init = function () {
@@ -687,11 +678,6 @@
                     url = urland;
                 } else if (ENV.is_ios && !!urlios) {
                     url = urlios;
-                }
-
-
-                if(!url){
-                    url = 1
                 }
 
                 url = jumpUrlMod.getRealPath(url);
